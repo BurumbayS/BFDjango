@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/todolist.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="main">
+
+        <button class="btn btn-info" data-toggle="collapse" data-target="#demo">Add task</button>
+
+        {% if authorized %}
+            <div id="floatRight">
+                <label for="logout">{{ user }}</label>
+                <a href="http://127.0.0.1:8000/todolist/auth/logout/" id="logout" class="btn btn-info" role="button">Logout</a>
+            </div>
+        {% else %}
+            <button id="floatRight" class="btn btn-info" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+            <button class="btn btn-default" data-toggle="modal" data-target="#loginModal">Login</button>
+        {% endif %}
+
+        <div id="demo" class="collapse">
+            <form action="http://127.0.0.1:8000/todolist/addTask/" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input class="textInput" placeholder="Enter task title" name="task_title">
+                <input class="dateInput" type="date" name="task_due_on">
+                <button class="addButton">Add</button>
+            </form>
+        </div>
+
+        <div class="modal fade" id="loginModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Login</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="http://127.0.0.1:8000/todolist/auth/login/" method="post">
+                            {% csrf_token %}
+                            {{ form }}
+                            <div class="form-group">
+                                <label for="email">Username:</label>
+                                <input type="username" class="form-control" id="email" name = "username">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" class="form-control" id="pwd" name = "password">
+                            </div>
+                            <button type="submit" class="btn btn-info">Login</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="signUpModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Sign Up</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="http://127.0.0.1:8000/todolist/auth/signup/" method="post">
+                            {% csrf_token %}
+                            {{ form }}
+                            <div class="form-group">
+                                <label for="first">First Name:</label>
+                                <input type="username" class="form-control" id="first" name = "first_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="last">Last Name:</label>
+                                <input type="username" class="form-control" id="last" name="last_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Username:</label>
+                                <input type="username" class="form-control" id="email" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" class="form-control" id="pwd" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm">Confirm Password:</label>
+                                <input type="password" class="form-control" id="confirm" name="confirm_password">
+                            </div>
+
+                            <button type="submit" class="btn btn-info">Sing Up</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        {% block list %}
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>

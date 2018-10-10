@@ -1,0 +1,55 @@
+.main {
+    margin: 20px;
+}
+
+.login {
+    float: right;
+}
+
+.blog {
+    width: 70%;
+    margin-left: 15%;
+    font-family: "Avenir Next";
+}
+
+.post {
+    border: 1px solid lightgray;
+    padding: 0px 20px;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 20px;
+}
+.author {
+    color: gray;
+}
+
+.comment {
+    margin-left: 20px;
+}
+
+#marginBottom{
+    margin-bottom: 20px !important;
+}
+
+#exampleFormControlTextarea2 {
+    margin-bottom: 10px !important;
+}
+
+.btn-circle.btn-xl {
+  position: fixed;
+  bottom: 0;
+  right: 17%;
+  width: 54px;
+  height: 54px;
+  padding-top: 0;
+  font-size: 30px;
+  /* line-height: 0.33; cursor: pointer; */
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,.25);
+  outline-style: none !important;
+}
+
+#floatRight {
+    float: right;
+    margin-left: 20px;
+}

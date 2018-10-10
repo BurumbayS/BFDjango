@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block blog %}
+
+<div class="blog">
+    <h1>Blog</h1>
+    <hr>
+
+    {% for post in posts %}
+        <div class="post">
+            <h3>{{ post.post.title }}</h3>
+            <p>{{ post.post.content }}</p>
+            <p class="author">{{ post.post.author.first_name }} {{ post.post.author.last_name }}</p>
+            <p class="author">{{ post.post.date }}</p>
+            <hr>
+
+            <div class="comments">
+                <h4>Comments</h4>
+
+                {% for comment in post.comments %}
+                    <div class="comment">
+                        <h5>{{ comment.author.first_name }} {{ comment.author.last_name }}</h5>
+                        <p>{{ comment.content }}</p>
+                        <p class="author">{{ comment.date }}</p>
+                        <hr>
+                    </div>
+                {% endfor %}
+
+                <form action="http://localhost:8000/blog/addComment/" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3"
+                                placeholder="Write your comment..." name="comment"></textarea>
+                    <button id="marginBottom" type="submit" class="btn btn-info" name="post_id" value="{{ post.post.id }}">Comment</button>
+                </form>
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
